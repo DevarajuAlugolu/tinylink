@@ -111,5 +111,3 @@ lib/
 migrations/
 components/
 ```
-
----
