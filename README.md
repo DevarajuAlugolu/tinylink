@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TinyLink – URL Shortener
 
-## Getting Started
+TinyLink is a simple URL shortener built with **Next.js**, **PostgreSQL**, and **Docker**.
+Users can create short links, view stats, copy links, open links, and delete them from a clean dashboard.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Tech Stack
+
+- Next.js (App Router)
+- PostgreSQL (Neon)
+- Tailwind CSS
+- SWR (data fetching)
+
+---
+
+## 📦 Features
+
+- Create short links
+- Optional custom code (6–8 chars)
+- Redirect via `/:code`
+- Click count tracking
+- Stats page `/code/:code`
+- Delete links
+- API documentation at `/docs`
+- Clean UI with copy/open/stats/delete icons
+
+---
+
+## 🛠 Setup
+
+### 1. Install dependencies
+
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Start PostgreSQL (via Docker)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+docker compose up -d
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Add environment variables
 
-## Learn More
+Create `.env` and fill:
 
-To learn more about Next.js, take a look at the following resources:
+```
+DATABASE_URL=postgres://tinylink:secret@localhost:5432/tinylink
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+npm run migrate
+```
 
-## Deploy on Vercel
+### 5. Start the app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit:
+👉 **[http://localhost:3000](http://localhost:3000)**
+
+---
+
+## 🔌 API Endpoints
+
+**Create link**
+`POST /api/links`
+
+**List links**
+`GET /api/links`
+
+**Link stats**
+`GET /api/links/:code`
+
+**Delete link**
+`DELETE /api/links/:code`
+
+**Redirect**
+`GET /:code`
+
+**Health check**
+`GET /healthz`
+
+---
+
+## 📘 API Docs
+
+Full documentation available at:
+👉 **/docs**
+
+---
+
+## 📂 Project Structure
+
+```
+app/
+  page.js           → Dashboard
+  docs/page.js      → API docs
+  code/[code]/page.js → Stats page
+  api/
+    links/route.js
+    links/[code]/route.js
+    [code]/route.js → Redirect
+lib/
+migrations/
+components/
+```
+
+---
