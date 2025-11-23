@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    container_name: tinylink-postgres
+    environment:
+      POSTGRES_USER: tinylink
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: tinylink
+    ports:
+      - "5432:5432"
+    volumes:
+      - tinylink-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tinylink"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  tinylink-db-data:
