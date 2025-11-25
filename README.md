@@ -8,7 +8,7 @@ Users can create short links, view stats, copy links, open links, and delete the
 ## 🚀 Tech Stack
 
 - Next.js (App Router)
-- PostgreSQL (Neon)
+- PostgreSQL (Neon / Docker)
 - Tailwind CSS
 - SWR (data fetching)
 
